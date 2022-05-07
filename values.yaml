@@ -1,0 +1,3 @@
+mainApp:
+  replicas: 2
+  alpine: true

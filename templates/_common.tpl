@@ -1,0 +1,1 @@
+{{ define "meta_data" }}helm: chart{{ end }}

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  {{- include "meta_data" . | nindent 2 }}
+spec:
+  replicas: {{ .Values.mainApp.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: nginx
+          {{- if .Values.mainApp.alpine }}
+          image: nginx:1.21-alpine
+          {{- else }}
+          image: nginx:1.21
+          {{- end }}
+          resources:
+            requests:
+              memory: 100Mi
+              cpu: 10m
+            limits:
+              memory: 150Mi
+              cpu: 100m
+---
